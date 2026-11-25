@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cellular Respiration — Powering the Cell</title>
+    <style>
+    :root {
+        color-scheme: light;
+        --ink: #263b45;
+        --muted: #61727b;
+        --line: #e0e8e7;
+        --mint: #e2f4e9;
+        --green: #276650;
+        --lavender: #eee8fa;
+        --purple: #6c5091;
+        --peach: #fff0df;
+        --blue:#e3f0fb
+    }
+
+    * {
+        box-sizing:border-box
+    }
+
+    body {
+        margin: 0;
+        background: #fff;
+        color: var(--ink);
+        font: 16px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+    }
+
+    main {
+        max-width: 1250px;
+        margin: auto;
+        padding:38px 30px
+    }
+
+    .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 800;
+        color:var(--green)
+    }
+
+    h1 {
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.15;
+        letter-spacing: -1.3px;
+        margin:10px 0
+    }
+
+    h2 {
+        font-size: 20px;
+        letter-spacing: -.4px;
+        margin:0
+    }
+
+    p {
+        margin:8px 0
+    }
+
+    .intro {
+        color: var(--muted);
+        max-width: 650px;
+        font-size:17px
+    }
+
+    .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom:28px
+    }
+
+    .badge {
+        background: var(--mint);
+        color: var(--green);
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 12px;
+        white-space:nowrap
+    }
+
+    .layout {
+        display: grid;
+        grid-template-columns: 290px minmax(0, 1fr);
+        gap: 24px;
+        align-items:start
+    }
+
+    .card {
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: #fff;
+        overflow:hidden
+    }
+
+    .controls {
+        padding:24px
+    }
+
+    .step-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+        margin-bottom:8px
+    }
+
+    .control {
+        margin-top:28px
+    }
+
+    .slider-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-weight:650
+    }
+
+    .slider-label output {
+        font-weight: 700;
+        background: var(--peach);
+        color: #80542a;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size:14px
+    }
+
+    .oxygen output {
+        background: var(--blue);
+        color:#365e83
+    }
+
+    input[type=range] {
+        width: 100%;
+        height: 24px;
+        accent-color: #bb8443;
+        margin: 13px 0 0;
+        cursor:pointer
+    }
+
+    .oxygen input {
+        accent-color:#588bb0
+    }
+
+    .endpoints {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size:11px
+    }
+
+    .helper {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top:8px
+    }
+
+    .actions {
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+        margin-top:26px
+    }
+
+    button {
+        font: inherit;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--ink);
+        border-radius: 12px;
+        padding:10px 16px
+    }
+
+    button:hover {
+        filter:brightness(.97)
+    }
+
+    button:focus-visible, input:focus-visible, summary:focus-visible {
+        outline: 3px solid #577bad;
+        outline-offset:4px
+    }
+
+    .start {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        background: var(--green);
+        color: #fff;
+        border-color: var(--green);
+        font-size: 18px;
+        font-weight: 750;
+        padding: 18px 12px;
+        box-shadow:0 5px 12px #2766501c
+    }
+
+    .reset {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 14px;
+        background:#f8faf9
+    }
+
+    .run-state {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 12px;
+        min-height:20px
+    }
+
+    .results {
+        margin-top: 22px;
+        display: grid;
+        gap:12px
+    }
+
+    .result {
+        border-radius: 16px;
+        padding: 17px 20px;
+        background:var(--mint)
+    }
+
+    .result.co2 {
+        background:var(--lavender)
+    }
+
+    .result-label {
+        font-size: 14px;
+        font-weight:650
+    }
+
+    .number {
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        line-height: 1.25;
+        color: var(--green);
+        font-variant-numeric:tabular-nums
+    }
+
+    .co2 .number {
+        color:var(--purple)
+    }
+
+    .unit {
+        font-size: 11px;
+        color:var(--muted)
+    }
+
+    .scene-top {
+        padding: 22px 24px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap:12px
+    }
+
+    .scene-top small {
+        color: var(--muted);
+        font-size:12px
+    }
+
+    .scene {
+        display: block;
+        width: 100%;
+        height:auto
+    }
+
+    .scene text, .process text {
+        font-family: system-ui, sans-serif;
+        fill: var(--ink);
+        font-size:14px
+    }
+
+    .scene .small, .process .small {
+        font-size: 11px;
+        fill:#61727b
+    }
+
+    .scene .title, .process .title {
+        font-weight:650
+    }
+
+    .region {
+        stroke-width:2
+    }
+
+    .region.selected {
+        stroke-width:4
+    }
+
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        color: var(--muted);
+        padding:4px 15px 19px
+    }
+
+    .legend i {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin-right: 6px;
+        border-radius:50%
+    }
+
+    .tabs-heading {
+        border-top: 1px solid var(--line);
+        padding: 18px 22px 9px;
+        font-size: 12px;
+        color:var(--muted)
+    }
+
+    .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.6fr;
+        gap: 8px;
+        padding:0 20px 18px
+    }
+
+    .tabs button {
+        font-size: 14px;
+        font-weight: 650;
+        line-height: 1.3;
+        min-height: 52px;
+        background: #f8faf9;
+        padding:11px 8px
+    }
+
+    .tabs button[aria-selected=true] {
+        background: var(--mint);
+        border-color: #86b89f;
+        color: #21553f;
+        box-shadow:inset 0 -3px #6fa487
+    }
+
+    .tabs button:nth-child(2)[aria-selected=true] {
+        background: var(--peach);
+        border-color: #d8ac75;
+        color: #795226;
+        box-shadow:inset 0 -3px #d8ac75
+    }
+
+    .tabs button:nth-child(3)[aria-selected=true] {
+        background: var(--lavender);
+        border-color: #b09bc8;
+        color: #624481;
+        box-shadow:inset 0 -3px #b09bc8
+    }
+
+    .process-panel {
+        background: #fafcfb;
+        border-top: 1px solid var(--line);
+        padding:20px 24px 22px
+    }
+
+    .process-panel h2 {
+        font-size:18px
+    }
+
+    .location {
+        color: var(--muted);
+        font-size: 12px;
+        margin:2px 0 8px
+    }
+
+    .process {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin:6px 0
+    }
+
+    .description {
+        font-size: 14px;
+        max-width: 720px;
+        color: #495e66;
+        margin-top:8px
+    }
+
+    .tip {
+        padding: 16px 20px;
+        background: #f7faf9;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        margin-top: 18px;
+        font-size: 13px;
+        color:#4f646b
+    }
+
+    .tip b {
+        color:var(--green)
+    }
+
+    details {
+        margin-top: 25px;
+        font-size: 12px;
+        color: var(--muted);
+        max-width:930px
+    }
+
+    summary {
+        cursor: pointer;
+        font-weight: 600;
+        padding:6px 0
+    }
+
+    details p {
+        margin-top:10px
+    }
+
+    .footer {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top:26px
+    }
+
+    @media (max-width: 900px) {
+        main {
+            padding:25px 20px
+        }
+
+        .layout {
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap:16px
+        }
+
+        .controls {
+            padding:19px
+        }
+
+        .tabs {
+            padding-left: 12px;
+            padding-right: 12px;
+            gap:5px
+        }
+
+        .tabs button {
+            font-size:12px
+        }
+
+        .scene-top {
+            padding:18px 18px 0
+        }
+
+        .scene-top small {
+            display:none
+        }
+    }
+
+    @media (max-width: 680px) {
+        main {
+            padding:22px 14px
+        }
+
+        .heading {
+            margin-bottom:22px
+        }
+
+        .badge {
+            display:none
+        }
+
+        .layout {
+            grid-template-columns:1fr
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap:18px
+        }
+
+        .controls > h2, .controls > .step-label {
+            grid-column:1/-1
+        }
+
+        .controls > .step-label {
+            margin-bottom:-18px
+        }
+
+        .control {
+            margin-top:0
+        }
+
+        .actions {
+            grid-column: 1/-1;
+            margin-top: 0;
+            padding-top:15px
+        }
+
+        .results {
+            grid-template-columns: 1fr 1fr;
+            margin: 14px 0 0;
+            gap:12px
+        }
+
+        .number {
+            font-size:34px
+        }
+
+        .result {
+            padding:15px
+        }
+
+        .tabs button {
+            font-size:13px
+        }
+
+        .process-panel {
+            padding:17px
+        }
+
+        .intro {
+            font-size:15px
+        }
+
+        h1 {
+            font-size:31px
+        }
+
+        .tip {
+            margin-bottom:4px
+        }
+
+        .scene text {
+            font-size:16px
+        }
+
+        .scene .small {
+            font-size:12px
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            scroll-behavior: auto !important
+        }
+    }
+
+    .atp-highlight {
+        flex: 0 0 260px;
+        align-self: stretch;
+        background: #e2f4d6;
+        border: 2px solid #a4cb8f;
+        border-radius: 21px;
+        padding: 18px 25px;
+        box-shadow: 0 6px 20px #527f2212;
+        display: flex;
+        flex-direction: column;
+        justify-content:center
+    }
+
+    .atp-heading {
+        font-weight: 750;
+        font-size: 17px;
+        color: #345c29;
+        display: flex;
+        align-items: center;
+        gap:9px
+    }
+
+    .energy-icon {
+        font-size: 29px;
+        line-height: 1;
+        color:#527f30
+    }
+
+    .atp-highlight .number {
+        font-size: 56px;
+        color: #345c29;
+        line-height: 1.15;
+        margin:4px 0
+    }
+
+    .atp-highlight .unit {
+        color:#4f6847
+    }
+
+    .results {
+        grid-template-columns:1fr
+    }
+
+    .molecule-label {
+        font-weight: 700;
+        paint-order: stroke;
+        stroke: #fff;
+        stroke-width: 4px;
+        stroke-linejoin:round
+    }
+
+    .process .molecule-label, .scene .molecule-label {
+        font-size: 12px;
+        fill:#344d58
+    }
+
+    .route {
+        fill: none;
+        stroke: #b9cec3;
+        stroke-width: 2;
+        stroke-dasharray:4 6
+    }
+
+    .scene .route.oxygen-route {
+        stroke: #acc7e3
+    }
+
+    @media (max-width: 680px) {
+        .heading {
+            flex-wrap: wrap;
+            gap:18px
+        }
+
+        .atp-highlight {
+            flex: 1 1 100%;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            padding: 13px 20px;
+            gap:0 12px
+        }
+
+        .atp-highlight .number {
+            grid-column: 2;
+            grid-row: 1/3;
+            font-size: 46px;
+            margin:0
+        }
+
+        .atp-highlight .unit {
+            grid-column: 1;
+            font-size:10px
+        }
+
+        .results {
+            grid-template-columns:1fr
+        }
+
+        .atp-heading {
+            font-size: 16px
+        }
+    }
+
+    .top-simulation {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-shrink:0
+    }
+
+    .top-start {
+        width:215px
+    }
+
+    .top-start .start {
+        white-space:nowrap
+    }
+
+    .top-start .run-state {
+        font-size:11px
+    }
+
+    .top-simulation .atp-highlight {
+        width: 240px;
+        flex-basis:240px
+    }
+
+    .heading > div:first-child {
+        min-width: 0
+    }
+
+    @media (max-width: 1050px) {
+        .heading {
+            flex-wrap:wrap
+        }
+
+        .top-simulation {
+            margin-left: auto
+        }
+    }
+
+    @media (max-width: 680px) {
+        .top-simulation {
+            width: 100%;
+            gap: 10px;
+            align-items:stretch
+        }
+
+        .top-start {
+            width: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content:center
+        }
+
+        .top-start .start {
+            font-size: 14px;
+            padding: 16px 8px;
+            white-space:normal
+        }
+
+        .top-simulation .atp-highlight {
+            width: auto;
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: flex-start;
+            padding:14px
+        }
+
+        .top-simulation .atp-heading {
+            font-size: 13px;
+            gap:5px
+        }
+
+        .top-simulation .atp-highlight .number {
+            font-size:40px
+        }
+
+        .top-simulation .atp-highlight .unit {
+            font-size:9px
+        }
+
+        .top-start .run-state {
+            font-size: 10px
+        }
+    }
+    </style>
+</head>
+<body>
+    <main>
+        <header class="heading">
+            <div>
+                <div class="eyebrow">The living cell lab</div>
+                <h1>Cellular Respiration</h1>
+                <p class="intro">How does a cell turn glucose into usable energy?</p>
+            </div>
+            <div class="top-simulation">
+                <div class="top-start">
+                    <button id="start" class="start">
+                        <span id="playIcon" aria-hidden="true">▶</span>
+                        <span id="startLabel">Start Simulation</span>
+                    </button>
+                    <p id="runState" class="run-state" role="status">Ready when you are.</p>
+                </div>
+                <section class="atp-highlight" aria-label="ATP production">
+                    <div class="atp-heading">
+                        <span class="energy-icon" aria-hidden="true">ϟ</span>
+                         ATP production
+                    </div>
+                    <div id="atp" class="number">0.0</div>
+                    <div class="unit">ATP units / simulated second</div>
+                </section>
+            </div>
+        </header>
+        <div class="layout">
+            <aside>
+                <section class="card controls" aria-label="Simulation controls">
+                    <div class="step-label">1. Set the conditions</div>
+                    <h2>Fuel the cell</h2>
+                    <div class="control">
+                        <label for="glucose" class="slider-label">
+                            <span>Glucose</span>
+                            <output id="glucoseValue" for="glucose">70%</output>
+                        </label>
+                        <input id="glucose" type="range" min="0" max="100" step="1" value="70">
+                        <div class="endpoints">
+                            <span>None</span>
+                            <span>High</span>
+                        </div>
+                        <p class="helper">The fuel that stores chemical energy.</p>
+                    </div>
+                    <div class="control oxygen">
+                        <label for="oxygen" class="slider-label">
+                            <span>Oxygen</span>
+                            <output id="oxygenValue" for="oxygen">80%</output>
+                        </label>
+                        <input id="oxygen" type="range" min="0" max="100" step="1" value="80">
+                        <div class="endpoints">
+                            <span>None</span>
+                            <span>High</span>
+                        </div>
+                        <p class="helper">Helps the cell release more of that energy.</p>
+                    </div>
+                </section>
+                <section class="results" aria-label="Production rates">
+                    <div class="result co2">
+                        <div class="result-label">CO₂ production</div>
+                        <div id="co2" class="number">0.0</div>
+                        <div class="unit">CO₂ units / simulated second</div>
+                    </div>
+                </section>
+            </aside>
+            <div>
+                <section class="card" aria-label="Cell and respiration processes">
+                    <div class="scene-top">
+                        <div>
+                            <div class="step-label">2. Follow the process</div>
+                            <h2>Inside the cell</h2>
+                        </div>
+                        <small>Glucose in • oxygen in • energy out</small>
+                    </div>
+                    <svg class="scene" id="cell" viewBox="0 0 800 345" role="img" aria-labelledby="cellTitle cellDesc">
+                        <title id="cellTitle">Cellular respiration in an animal cell</title>
+                        <desc id="cellDesc">Glycolysis occurs in the cytoplasm. Pyruvate enters the mitochondrion, where the Krebs cycle takes place in the matrix and electron transport occurs at the inner membrane.</desc>
+                        <defs>
+                            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                                <path d="M0 0L7 3.5L0 7" fill="#78928b"/>
+                            </marker>
+                        </defs>
+                        <path d="M73 69 Q345 -3 686 66 Q795 97 755 240 Q716 333 428 323 Q140 342 54 253 Q9 151 73 69Z" fill="#f2f8f5" stroke="#b6d4c5" stroke-width="3"/>
+                        <text x="97" y="77" class="small">Cell membrane</text>
+                        <text x="83" y="106" class="title">Cytoplasm</text>
+                        <ellipse cx="148" cy="247" rx="66" ry="47" fill="#eee8f7" stroke="#c8b9db" stroke-width="2"/>
+                        <ellipse cx="134" cy="239" rx="21" ry="17" fill="#ded0ee"/>
+                        <text x="117" y="272" class="small">Nucleus</text>
+                        <rect id="region0" class="region" x="87" y="121" width="209" height="90" rx="23" fill="#e1f2e6" stroke="#9ebfa9"/>
+                        <text x="114" y="143" class="title">Glycolysis</text>
+                        <path d="M297 155 Q331 155 366 168" fill="none" stroke="#78928b" stroke-width="2" marker-end="url(#arrow)"/>
+                        <path d="M396 103 Q534 54 681 111 Q756 151 694 254 Q586 310 420 265 Q335 222 396 103Z" fill="#fff1df" stroke="#d4b18a" stroke-width="3"/>
+                        <path d="M409 124 Q449 99 471 122 L449 198 Q451 216 466 206 L502 124 Q514 108 528 128 L507 213 Q508 231 523 214 L560 131 Q574 113 587 134 L566 219 Q570 239 582 217 L618 142 Q632 123 646 145 Q705 166 667 223 Q577 273 437 243 Q383 217 409 124Z" fill="#fff9ef" stroke="#c6a1d9" stroke-width="5"/>
+                        <rect id="region1" class="region" x="390" y="148" width="140" height="108" rx="24" fill="#ffebcb" stroke="#d7af76"/>
+                        <text x="411" y="169" class="title">Krebs</text>
+                        <text x="405" y="247" class="small">Pyruvate → CO₂</text>
+                        <rect id="region2" class="region" x="544" y="119" width="153" height="138" rx="22" fill="#eae0f5" stroke="#b6a1cf"/>
+                        <text x="556" y="139" class="title">Electron transport</text>
+                        <text x="560" y="247" class="small">ATP synthase</text>
+                        <path d="M513 193 L538 179" stroke="#78928b" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="490" y="295" class="title">Mitochondrion</text>
+                        <path d="M657 99 L688 77" stroke="#a58ab7"/>
+                        <text x="569" y="68" class="small">Folded inner membrane</text>
+                        <path class="route" d="M30 118 Q61 112 95 135"/>
+                        <path class="route oxygen-route" d="M752 69 Q721 83 681 139"/>
+                        <g id="cellParticles"></g>
+                    </svg>
+                    <div class="legend">
+                        <span>
+                            <i style="background:#dca85f"></i>
+                            Glucose / carbon
+                        </span>
+                        <span>
+                            <i style="background:#739fcb"></i>
+                            Oxygen
+                        </span>
+                        <span>
+                            <i style="background:#69aa83"></i>
+                            ATP
+                        </span>
+                        <span>
+                            <i style="background:#a18ac0"></i>
+                            CO₂
+                        </span>
+                    </div>
+                    <div class="tabs-heading">Select a process to see how it works</div>
+                    <div class="tabs" role="tablist" aria-label="Respiration processes">
+                        <button id="tab0" role="tab" aria-selected="true" aria-controls="processPanel" tabindex="0" data-stage="0">Glycolysis</button>
+                        <button id="tab1" role="tab" aria-selected="false" aria-controls="processPanel" tabindex="-1" data-stage="1">Krebs</button>
+                        <button id="tab2" role="tab" aria-selected="false" aria-controls="processPanel" tabindex="-1" data-stage="2">Electron Transport Chain</button>
+                    </div>
+                    <section id="processPanel" class="process-panel" role="tabpanel" aria-labelledby="tab0" tabindex="0">
+                        <h2 id="processTitle">Glycolysis</h2>
+                        <p class="location" id="location">In the cytoplasm</p>
+                        <svg class="process" id="process" viewBox="0 0 740 200" role="img" aria-labelledby="processSvgTitle processSvgDesc"></svg>
+                        <p class="description" id="description"></p>
+                    </section>
+                </section>
+                <p id="tip" class="tip">
+                    <b>Try it:</b>
+                     Start the simulation, then lower oxygen. What happens to ATP production?
+                </p>
+            </div>
+        </div>
+        <details>
+            <summary>About the simplified model</summary>
+            <p>The readouts show the whole cell’s production rates, regardless of the selected process tab. Percentages represent relative supply capacity, not measured concentrations. One fuel unit represents one glucose equivalent. This is a steady-state teaching model: changing a slider updates the modeled rates immediately. It does not simulate stored fuel, delayed responses, ATP demand, or cell death.</p>
+            <p>Glucose use G = glucose percentage / 100. Aerobic processing A = min(G, oxygen percentage / 100). The remaining fuel F = G − A follows glycolysis supported by lactate fermentation, which regenerates NAD⁺. ATP production = 2G + 30A; CO₂ production = 6A. Complete aerobic processing uses a simplified yield of 32 ATP per glucose (2 glycolysis + 2 Krebs equivalents + 28 oxidative phosphorylation); typical eukaryotic yields are approximately 30–32. Fermentation contributes no extra ATP beyond glycolysis and no CO₂ in this animal-cell model. Carbon is conserved: 6G = 6A in CO₂ + 6F in lactate. If glucose is absent, both rates are zero. At zero oxygen, glycolysis can still produce ATP when glucose is available.</p>
+            <p>The Krebs view includes pyruvate oxidation. The electron transport view combines the ETC and ATP synthase; oxygen is the final electron acceptor, and electron transport builds the proton gradient used to power ATP synthesis. Energy is transferred from fuel, not created. Other fuels and separate electron-carrier pools are omitted. Carbon dots in the splitting and breakdown sequences preserve the illustrated carbon count. The breakdown compresses several reactions and cycle turns; individual fuel carbons need not leave in the first Krebs turn. Overlapping packets repeat continuously; the entry and exit fades represent molecules entering and leaving the illustrated region, not matter disappearing. Other particles illustrate routes, not quantitative molecular counts. The rotating synthase is a schematic motor; its speed is illustrative, not an actual rotation rate. Glucose enters glycolysis; oxygen travels to the electron transport chain, not to glycolysis or the Krebs cycle. The whole-cell animation remains visible on every tab. The page stays still until Start Simulation is pressed. This explicit action enables continuous animation, including when the browser requests reduced motion. Animation pauses while this browser tab is hidden and resumes when it becomes visible.</p>
+        </details>
+        <p class="footer">A self-contained learning simulation. No account or internet connection needed.</p>
+    </main>
+    <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const colors = {
+        carbon: '#dca85f',
+        oxygen: '#739fcb',
+        atp: '#69aa83',
+        co2: '#a18ac0',
+        carrier: '#a18ac0',
+        proton: '#c19c4e'
+    };
+    let glucose = 70,
+        oxygen = 80,
+        stage = 0,
+        running = false,
+        started = false,
+        phase = 0,
+        last = 0;
+    // Animation is explicitly enabled by the user pressing Start Simulation.
+    // Supply-limited, steady-state stoichiometric model. The UI starts paused.
+    function calculate(g, o) {
+        const fuel = g / 100,
+            aerobic = Math.min(fuel, o / 100);
+        return {
+            fuel,
+            aerobic,
+            fermented: fuel - aerobic,
+            atp: 2 * fuel + 30 * aerobic,
+            co2: 6 * aerobic
+        };
+    }
+    function updateReadouts() {
+        const r = calculate(glucose, oxygen);
+        $('atp').textContent = (started ? r.atp : 0).toFixed(1);
+        $('co2').textContent = (started ? r.co2 : 0).toFixed(1);
+        $('glucoseValue').textContent = glucose + '%';
+        $('oxygenValue').textContent = oxygen + '%';
+        if (!started)
+            $('tip').innerHTML = '<b>Try it:</b> Start the simulation, then lower oxygen. What happens to ATP production?';
+        else if (glucose === 0)
+            $('tip').innerHTML = '<b>No fuel:</b> Without glucose, neither ATP nor CO₂ is produced in this model.';
+        else if (oxygen === 0)
+            $('tip').innerHTML = '<b>No oxygen:</b> Glycolysis still makes a little ATP, supported by lactate fermentation. Aerobic processing and CO₂ production stop.';
+        else if (oxygen < glucose)
+            $('tip').innerHTML = '<b>Oxygen is limiting:</b> Some glucose is processed aerobically; the rest supports glycolysis and lactate fermentation.';
+        else
+            $('tip').innerHTML = '<b>Try it:</b> Lower oxygen below the glucose setting. Compare the ATP and CO₂ production rates.';
+    }
+    function syncRun() {
+        $('startLabel').textContent = 'Start Simulation';
+        $('playIcon').textContent = '▶';
+        $('runState').textContent = started ? 'Running • press Start to restart.' : 'Ready when you are.';
+    }
+    $('start').onclick = () => {
+        started = true;
+        running = true;
+        phase = 0;
+        last = 0;
+        lastDraw = 0;
+        syncRun();
+        updateReadouts();
+        drawParticles();
+    };
+    for (const name of ['glucose', 'oxygen'])
+        $(name).oninput = e => {
+            if (name === 'glucose')
+                glucose = +e.target.value;
+            else
+                oxygen = +e.target.value;
+            updateReadouts();
+            drawParticles();
+        };
+    function text(x, y, s, cls='') {
+        return `<text x="${x}" y="${y}" class="${cls}">${s}</text>`;
+    }
+    function arrow(path) {
+        return `<path d="${path}" fill="none" stroke="#78928b" stroke-width="2" marker-end="url(#arrow)"/>`;
+    }
+    function atoms(x, y, n) {
+        return Array.from({
+            length: n
+        }, (_, i) => `<circle cx="${x + i * 15}" cy="${y}" r="6" fill="${colors.carbon}"/>`).join('');
+    }
+    const info = [{
+        title: 'Glycolysis',
+        location: 'In the cytoplasm',
+        description: 'One glucose splits into two pyruvate molecules. Glycolysis makes a small amount of ATP and does not directly require oxygen.',
+        alt: 'Six carbon atoms in glucose split into two three-carbon pyruvates. ATP is produced.'
+    }, {
+        title: 'Krebs',
+        location: 'In the mitochondrial matrix',
+        description: 'Watch three carbon atoms: one leaves as CO₂ during pyruvate oxidation; the remaining two enter the Krebs cycle and ultimately leave as CO₂. A little ATP and electron carriers are also produced. This animation compresses multiple cycle turns.',
+        alt: 'Pyruvate becomes acetyl-CoA, releasing carbon dioxide. The Krebs cycle releases more carbon dioxide and produces ATP and electron carriers.'
+    }, {
+        title: 'Electron Transport Chain',
+        location: 'At the inner mitochondrial membrane',
+        description: 'Electrons pass along proteins, helping pump H⁺ across the membrane. H⁺ returns through ATP synthase, turning its motor. The motor uses this energy to combine ADP and phosphate into ATP. Oxygen accepts the electrons and helps form water.',
+        alt: 'Electron carriers feed the electron transport chain. Protons are pumped above the membrane and return through ATP synthase. Oxygen accepts electrons and water forms.'
+    }];
+    function setStage(index) {
+        stage = index;
+        document.querySelectorAll('[data-stage]').forEach((b, i) => {
+            b.setAttribute('aria-selected', i === stage);
+            b.tabIndex = i === stage ? 0 : -1;
+            $('region' + i).classList.toggle('selected', i === stage);
+        });
+        $('processPanel').setAttribute('aria-labelledby', 'tab' + stage);
+        const p = info[stage];
+        $('processTitle').textContent = p.title;
+        $('location').textContent = p.location;
+        $('description').textContent = p.description;
+        let svg = `<title id="processSvgTitle">${p.title}</title><desc id="processSvgDesc">${p.alt}</desc>`;
+        if (stage === 0) {
+            svg += text(28, 28, 'Glucose: 6 carbons', 'title') + text(407, 28, 'Two pyruvates: 3 carbons each', 'title') + arrow('M110 95L580 95') + text(34, 186, 'Watch the six carbons separate into two groups.', 'small');
+        }
+        if (stage === 1) {
+            svg += text(26, 25, 'Pyruvate oxidation', 'title') + text(367, 25, 'Krebs cycle', 'title') + text(28, 185, 'One CO₂ leaves first; two more ultimately leave during the cycle.', 'small');
+        }
+        if (stage === 2) {
+            svg += '<rect x="10" y="75" width="720" height="29" rx="10" fill="#e5dcf1"/>' + text(18, 27, 'Intermembrane space', 'small') + text(18, 188, 'Matrix', 'small');
+            for (const x of [195, 308, 422])
+                svg += `<rect x="${x}" y="59" width="55" height="60" rx="15" fill="#d7c9e8" stroke="#ac95c5"/>`;
+            svg += text(193, 141, 'Electron transport chain', 'small') + arrow('M250 89L417 89') + arrow('M477 89L528 89') + text(494, 46, 'O₂ accepts e⁻', 'small') + text(20, 146, 'Carriers donate e⁻', 'small') + arrow('M137 131L195 107') + arrow('M330 58L330 25') + text(350, 34, 'H⁺', 'small') + text(577, 18, 'ATP synthase motor', 'title');
+        }
+        $('process').innerHTML = svg + '<g id="processParticles"></g>';
+        drawParticles();
+    }
+    document.querySelectorAll('[data-stage]').forEach(b => {
+        b.onclick = () => setStage(+b.dataset.stage);
+        b.onkeydown = e => {
+            let next = stage;
+            if (e.key === 'ArrowRight')
+                next = (stage + 1) % 3;
+            else if (e.key === 'ArrowLeft')
+                next = (stage + 2) % 3;
+            else if (e.key === 'Home')
+                next = 0;
+            else if (e.key === 'End')
+                next = 2;
+            else
+                return;
+            e.preventDefault();
+            setStage(next);
+            $('tab' + next).focus();
+        };
+    });
+    // Molecule glyphs and labels make the pathways readable without relying on color alone.
+    function molecule(x, y, kind, label) {
+        const c = colors[kind] || colors.carbon;
+        let shape = '';
+        if (kind === 'glucose' || kind === 'pyruvate') {
+            const n = kind === 'glucose' ? 6 : 3;
+            shape = Array.from({
+                length: n
+            }, (_, i) => {
+                const col = i % 3,
+                    row = Math.floor(i / 3);
+                return `<circle cx="${(col - 1) * 9}" cy="${row * 9 - 4}" r="5" fill="${colors.carbon}" stroke="#fff" stroke-width="1.2"/>`;
+            }).join('');
+        } else if (kind === 'oxygen')
+            shape = `<circle cx="-5" cy="0" r="6" fill="${c}" stroke="#fff" stroke-width="1.2"/><circle cx="5" cy="0" r="6" fill="${c}" stroke="#fff" stroke-width="1.2"/>`;
+        else if (kind === 'water')
+            shape = `<circle r="6" fill="${colors.oxygen}"/><circle cx="-7" cy="5" r="3" fill="#b7cee5"/><circle cx="7" cy="5" r="3" fill="#b7cee5"/>`;
+        else if (kind === 'co2')
+            shape = `<circle cx="-9" cy="0" r="5" fill="#c1afd9"/><circle cx="0" cy="0" r="6" fill="${c}"/><circle cx="9" cy="0" r="5" fill="#c1afd9"/>`;
+        else
+            shape = `<circle r="${kind === 'atp' ? 9 : 6}" fill="${c}" stroke="#fff" stroke-width="1.5"/>`;
+        return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})">${shape}${label ? `<text class="molecule-label" x="0" y="-16" text-anchor="middle">${label}</text>` : ''}</g>`;
+    }
+    // Fade only at the route edges; staggered packets keep the reaction continuous.
+    const smooth = t => {
+        t = Math.max(0, Math.min(1, t));
+        return t * t * (3 - 2 * t);
+    };
+    function visibility(u) {
+        return smooth(u / .13) * smooth((1 - u) / .16);
+    }
+    function fade(opacity, svg) {
+        return `<g opacity="${opacity.toFixed(4)}">${svg}</g>`;
+    }
+    function packets(clock, active, render) {
+        if (!active)
+            return render(0, 0);
+        return [0, .5].map(offset => {
+            const u = (clock + offset) % 1;
+            return fade(visibility(u), render(u, offset));
+        }).join('');
+    }
+    function travel(x1, y1, x2, y2, offset, kind, label, rate) {
+        return packets(phase * (.19 + .13 * rate) + offset, rate > 0, u => molecule(x1 + (x2 - x1) * u, y1 + (y2 - y1) * u, kind, label));
+    }
+    // Each packet keeps all six carbons while separating into two pyruvates.
+    function splitting(x, y, scale, rate) {
+        const body = packets(phase * (.08 + .065 * rate), rate > 0, u => {
+            const progress = smooth((u - .27) / .43);
+            let out = '<g data-packet="glucose">';
+            for (let row = 0; row < 2; row++)
+                for (let col = 0; col < 3; col++) {
+                    const cx = 15 * col + u * 120,
+                        cy = (row === 0 ? -1 : 1) * (6 + progress * 28);
+                    out += `<circle data-carbon="${row * 3 + col}" cx="${cx}" cy="${cy}" r="6" fill="${colors.carbon}" stroke="white" stroke-width="1.5"/>`;
+                }
+            const split = smooth((u - .27) / .15);
+            out += fade(1 - split, text(u * 120, -31, 'Glucose', 'small')) + fade(split, text(u * 120, -51, 'Pyruvate', 'small') + text(u * 120, 55, 'Pyruvate', 'small'));
+            if (rate > 0)
+                out += fade(smooth((u - .53) / .12), molecule(30 + Math.max(0, u - .55) * 110, 52, 'atp', 'ATP'));
+            return out + '</g>';
+        });
+        return `<g data-reaction="glucose-split" transform="translate(${x} ${y}) scale(${scale})">${body}</g>`;
+    }
+    // Smooth carbon paths through preparation, the cycle, and CO2 release.
+    function carbonPosition(i, u) {
+        if (u <= .28)
+            return [35 + u / .28 * 72 + i * 14, 0];
+        if (u < .5) {
+            const v = smooth((u - .28) / .22);
+            return [107 + i * 14 + (200 + (i - 1) * 12 - 107 - i * 14) * v, 0];
+        }
+        const angle = (u - .5) * 9;
+        return [170 + 30 * Math.cos(angle) + (i - 1) * 12, 24 * Math.sin(angle)];
+    }
+    function breakdown(x, y, scale, rate) {
+        let out = `<g data-reaction="pyruvate-breakdown" transform="translate(${x} ${y}) scale(${scale})"><ellipse cx="170" cy="0" rx="39" ry="32" fill="none" stroke="#dfbd8c" stroke-width="2" stroke-dasharray="5 4"/>`;
+        out += packets(phase * (.065 + .045 * rate) + .12, rate > 0, u => {
+            let packet = '<g data-packet="pyruvate">';
+            for (let i = 0; i < 3; i++) {
+                const release = [.28, .61, .76][i],
+                    v = Math.max(0, (u - release) / (1 - release));
+                const origin = carbonPosition(i, Math.min(u, release));
+                const px = origin[0] + v * (i === 0 ? -10 : 57),
+                    py = origin[1] + v * (i === 2 ? 43 : -55),
+                    co2 = smooth((u - release) / .07);
+                packet += `<g data-carbon="${i}" transform="translate(${px} ${py})">`;
+                packet += fade(co2, '<circle cx="-10" r="5" fill="#b5a1d0"/><circle cx="10" r="5" fill="#b5a1d0"/>' + text(-12, -13, 'CO₂', 'small'));
+                packet += `<circle r="6" fill="${colors.carbon}" stroke="white" stroke-width="1"/></g>`;
+            }
+            const prepared = smooth((u - .25) / .1);
+            packet += fade(1 - prepared, text(11, 26, 'Pyruvate (3C)', 'small')) + fade(prepared, text(11, 26, 'Acetyl group → cycle', 'small'));
+            return packet + '</g>';
+        });
+        return out + '</g>';
+    }
+    function motor(x, y, scale, rate) {
+        const turn = rate > 0 ? phase * (65 + 110 * rate) : 0;
+        let out = `<g data-motor="atp-synthase" transform="translate(${x} ${y}) scale(${scale})"><rect x="-9" y="-46" width="18" height="48" rx="7" fill="#c7dfcf" stroke="#6c9a7c" stroke-width="2"/><path d="M0 -20V8" stroke="#63876b" stroke-width="5"/><circle r="23" fill="#e1f1d8" stroke="#6c9a7c" stroke-width="2"/><g data-rotor="true" transform="rotate(${turn})">`;
+        for (let i = 0; i < 3; i++)
+            out += `<path d="M0 0Q-13 -9 0 -20Q14 -9 0 0" fill="${['#74a884', '#98c5a3', '#bbd8b2'][i]}" transform="rotate(${i * 120})"/>`;
+        out += '<circle r="5" fill="#527b59"/></g>';
+        if (rate > 0) {
+            out += packets(phase * (.35 + .25 * rate), true, u => {
+                const converted = smooth((u - .44) / .12),
+                    px = -70 + u * 140,
+                    py = 12 + Math.abs(u - .5) * 40;
+                return molecule(0, -64 + u * 49, 'proton', 'H⁺') + fade(1 - converted, text(px - 25, py, 'ADP + Pi', 'small')) + fade(converted, molecule(px, py, 'atp', 'ATP'));
+            });
+        } else
+            out += text(-26, 42, 'ADP + Pi', 'small');
+        return out + '</g>';
+    }
+    function drawParticles() {
+        const r = calculate(glucose, oxygen),
+            g = started ? r.fuel : 0,
+            a = started ? r.aerobic : 0;
+        let cell = '',
+            detail = '';
+        // The reactions take place inside the visible cell structures, on every tab.
+        cell += splitting(116, 173, .82, g) + breakdown(391, 208, .55, a) + motor(630, 202, .78, a);
+        if (g > 0)
+            cell += travel(35, 117, 105, 139, 0, 'glucose', 'Glucose', g);
+        if (a > 0) {
+            cell += travel(302, 163, 380, 187, .35, 'pyruvate', 'Pyruvate', a) + travel(751, 82, 686, 158, .15, 'oxygen', 'O₂', a) + travel(535, 174, 591, 174, .35, 'proton', 'e⁻', a);
+        }
+        if (stage === 0)
+            detail += splitting(130, 94, 1.6, g);
+        if (stage === 1) {
+            detail += breakdown(100, 107, 1.65, a);
+            if (a > 0)
+                detail += travel(580, 135, 675, 154, .7, 'carrier', 'Carriers', a) + travel(535, 107, 671, 93, .4, 'atp', 'ATP', a);
+        }
+        if (stage === 2) {
+            detail += motor(640, 125, 1, a);
+            if (a > 0) {
+                detail += travel(137, 131, 193, 108, .5, 'carrier', '', a) + travel(250, 89, 528, 89, 0, 'proton', 'e⁻', a) + travel(330, 63, 330, 27, .25, 'proton', 'H⁺', a) + travel(553, 49, 530, 94, .3, 'oxygen', 'O₂', a) + travel(530, 108, 553, 157, .8, 'water', 'H₂O', a);
+            }
+        }
+        $('cellParticles').innerHTML = cell;
+        if ($('processParticles'))
+            $('processParticles').innerHTML = detail;
+    }
+    let lastDraw = 0;
+    function animate(now) {
+        const dt = last ? Math.min((now - last) / 1000, .1) : 0;
+        last = now;
+        if (running && !document.hidden) {
+            phase += dt;
+            if (now - lastDraw > 16) {
+                drawParticles();
+                lastDraw = now;
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    syncRun();
+    updateReadouts();
+    setStage(0);
+    requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
